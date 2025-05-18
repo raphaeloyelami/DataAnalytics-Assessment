@@ -57,6 +57,8 @@ The analysis is built on four main tables:
 
 ![Image](https://github.com/user-attachments/assets/eedd32ea-b549-4c7a-a78f-683668f1833f)
 
+### The ERD includes only the columns relevant to the queries because its purpose is to highlight the data elements directly involved in solving the business problem. Including all columns would add unnecessary complexity and reduce clarity, so I focused solely on those essential columns for the analysis.
+
 ---
 
 ## 🔍 Per-Question Explanations
@@ -68,7 +70,7 @@ The analysis is built on four main tables:
 **Logic:**
 - Group savings and investments by owner
 - Use conditional aggregation to separate savings and investments
-- Sum all confirmed deposits to measure total value
+- Sum all confirmed amounts to measure total value
 - Filter only users with ≥1 in both product types
 
 **Insight:** Helps the business identify users suitable for upselling, loyalty rewards, or cross-sell marketing.
@@ -80,7 +82,7 @@ The analysis is built on four main tables:
 **Purpose:** Segment users into activity bands for marketing and retention strategy.
 
 **Logic:**
-- Count number of deposit transactions per user
+- Count number of transactions per user
 - Divide by number of months active to get monthly rate
 - Use `CASE` statement to classify into frequency categories
 - Group by category for summary metrics
@@ -91,10 +93,10 @@ The analysis is built on four main tables:
 
 ### 3. Account Inactivity Alert
 
-**Purpose:** Identify dormant accounts that haven't received deposits in over 1 year.
+**Purpose:** Identify dormant accounts that haven't made a transaction in over 1 year.
 
 **Logic:**
-- Get the latest deposit per plan
+- Get the latest transaction per plan
 - Compare to `CURRENT_DATE` using `DATEDIFF()`
 - Only include savings or investment plans with no recent inflows
 
@@ -107,7 +109,7 @@ The analysis is built on four main tables:
 **Purpose:** Estimate the monetary value each customer brings based on past behavior.
 
 **Logic:**
-- Count total transactions and sum deposit amounts
+- Count total transactions and sum confirmed amounts
 - Calculate tenure in months since signup
 - Use the formula:
 `CLV = (total_value / tenure) * 12 * 0.001`
